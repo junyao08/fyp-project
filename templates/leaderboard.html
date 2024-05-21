@@ -7,12 +7,14 @@
         <th>Rank</th>
         <th>Username</th>
         <th>Score</th>
+        <th>Title</th>
     </tr>
     {% for entry in leaderboard %}
     <tr>
         <td>{{ entry.rank }}</td>
         <td>{{ entry.username }}</td>
         <td>{{ entry.points }}</td>
+        <td>{{ entry.title }}</td>
     </tr>
     {% endfor %}
 </table>

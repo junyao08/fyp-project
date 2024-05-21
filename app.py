@@ -102,9 +102,16 @@ def phishing_gamified():
     if 'username' in session:
         if request.method == 'POST':
             score = int(request.form['score'])
+            # Set the title based on score points
+            if score >= 80:
+                title = "Gorlock the destroyer"
+            elif score >= 50:
+                title = "Caseoh"
+            elif score >= 10:
+                title = "Biggest L"
             conn = sqlite3.connect('users.db')
             c = conn.cursor()
-            c.execute('UPDATE users SET score = score + ? WHERE username = ?', (score, session['username']))
+            c.execute('UPDATE users SET title = ?, score = score + ? WHERE username = ?', (title, score, session['username']))
             conn.commit()
             conn.close()
             return redirect(url_for('leaderboard'))
@@ -116,12 +123,12 @@ def leaderboard():
     if 'username' in session:
         conn = sqlite3.connect('users.db')
         cur = conn.cursor()
-        cur.execute('SELECT username, score FROM users ORDER BY score DESC')
+        cur.execute('SELECT username, score, title FROM users ORDER BY score DESC')
         leaderboard_data = cur.fetchall()
         conn.close()
 
         # Creating a rank list for the leaderboard
-        ranked_leaderboard = [{'rank': i+1, 'username': row[0], 'points': row[1]} for i, row in enumerate(leaderboard_data)]
+        ranked_leaderboard = [{'rank': i+1, 'username': row[0], 'points': row[1], 'title': row[2]} for i, row in enumerate(leaderboard_data)]
 
         return render_template('leaderboard.html', username=session['username'], leaderboard=ranked_leaderboard)
     return redirect(url_for('login'))
