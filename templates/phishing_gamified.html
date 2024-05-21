@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Phishing Game</h1>
+<form id="gameForm" method="post">
+    <div id="question-container">
+        <!-- Questions will be dynamically inserted here -->
+    </div>
+    <input type="hidden" name="score" id="score" value="0">
+    <button type="submit">Submit Score</button>
+</form>
+<script>
+    const questions = [
+        {
+            question: "You receive an email from your bank asking you to verify your account information. What do you do?",
+            answers: [
+                { text: "Click the link in the email to verify your information.", correct: false },
+                { text: "Ignore the email.", correct: false },
+                { text: "Call your bank using the official phone number to verify the request.", correct: true },
+                { text: "Reply to the email asking for more details.", correct: false }
+            ]
+        },
+        {
+            question: "A friend sends you a message on social media with a link to a funny video. What do you do?",
+            answers: [
+                { text: "Click the link to watch the video.", correct: false },
+                { text: "Reply to your friend asking if they really sent the link.", correct: true },
+                { text: "Ignore the message.", correct: false },
+                { text: "Forward the message to other friends.", correct: false }
+            ]
+        }
+    ];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    function showQuestion(question) {
+        const questionContainer = document.getElementById('question-container');
+        questionContainer.innerHTML = `
+            <div>
+                <p>${question.question}</p>
+                ${question.answers.map((answer, index) => `
+                    <label>
+                        <input type="radio" name="answer" value="${index}">
+                        ${answer.text}
+                    </label>
+                `).join('')}
+            </div>
+        `;
+    }
+
+    document.getElementById('gameForm').addEventListener('submit', (event) => {
+        event.preventDefault();
+        const selectedAnswerIndex = document.querySelector('input[name="answer"]:checked').value;
+        if (questions[currentQuestionIndex].answers[selectedAnswerIndex].correct) {
+            score += 10;
+        }
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length) {
+            showQuestion(questions[currentQuestionIndex]);
+        } else {
+            document.getElementById('score').value = score;
+            event.target.submit();
+        }
+    });
+
+    showQuestion(questions[currentQuestionIndex]);
+</script>
+{% endblock %}

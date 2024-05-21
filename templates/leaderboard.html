@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Leaderboard</h1>
+<p>Check out the top performers in phishing awareness training:</p>
+<table>
+    <tr>
+        <th>Rank</th>
+        <th>Username</th>
+        <th>Score</th>
+    </tr>
+    {% for entry in leaderboard %}
+    <tr>
+        <td>{{ entry.rank }}</td>
+        <td>{{ entry.username }}</td>
+        <td>{{ entry.points }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

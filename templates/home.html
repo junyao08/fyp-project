@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Welcome, {{ username }}!</h1>
+<p>Choose an option below:</p>
+<ul>
+    <li><a href="{{ url_for('phishing_materials') }}">Phishing Learning Material</a></li>
+    <li><a href="{{ url_for('phishing_gamified') }}">Phishing Gamified</a></li>
+    <li><a href="{{ url_for('leaderboard') }}">Leaderboard</a></li>
+    <li><a href="{{ url_for('profile') }}">Profile</a></li>
+</ul>
+{% endblock %}
