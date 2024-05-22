@@ -99,6 +99,7 @@ def phishing_materials():
 
 @app.route('/phishing_gamified', methods=['GET', 'POST'])
 def phishing_gamified():
+    title = ""
     if 'username' in session:
         if request.method == 'POST':
             score = int(request.form['score'])
@@ -109,9 +110,12 @@ def phishing_gamified():
                 title = "Caseoh"
             elif score >= 10:
                 title = "Biggest L"
+            else:
+                title = "Rookie"
             conn = sqlite3.connect('users.db')
             c = conn.cursor()
-            c.execute('UPDATE users SET title = ?, score = score + ? WHERE username = ?', (title, score, session['username']))
+            # Append the title and score on the current user into the database record.
+            c.execute('UPDATE users SET title = ?, score = ? WHERE username = ?', (title, score, session['username']))
             conn.commit()
             conn.close()
             return redirect(url_for('leaderboard'))
