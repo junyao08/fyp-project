@@ -91,12 +91,6 @@ def logout():
     session.pop('username', None)
     return redirect(url_for('login'))
 
-@app.route('/phishing_materials')
-def phishing_materials():
-    if 'username' in session:
-        return render_template('phishing_materials.html', username=session['username'])
-    return redirect(url_for('login'))
-
 @app.route('/phishing_gamified', methods=['GET', 'POST'])
 def phishing_gamified():
     title = ""
