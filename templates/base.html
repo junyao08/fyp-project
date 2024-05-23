@@ -3,28 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flask App</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="{{ url_for('static', filename='css/output.css') }}" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <title>{% block title %}Dashboard{% endblock %}</title>
 </head>
-<body>
-    <nav>
-        {% if 'username' in session %}
-            <a href="{{ url_for('home') }}">Home</a>
-            <a href="{{ url_for('logout') }}">Logout</a>
-        {% endif %}
-    </nav>
-    <div class="container">
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <ul class="flashes">
-                    {% for message in messages %}
-                        <li>{{ message }}</li>
-                    {% endfor %}
+<body class="bg-gray-50">
+    <!-- Full-Width Sticky Header -->
+    <header class="flex justify-between items-center bg-white shadow p-6 sticky top-0 z-10">
+        <a href="{{ url_for('home') }}" class="text-2xl font-bold text-blue-600">Jin's Gigantic Nutsack</a>
+            <button id="dropdownUserAvatarButton" data-dropdown-toggle="dropdownAvatar" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" type="button">            
+            <div class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full white:bg-gray-600">
+                <svg class="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+            </div>
+
+            </button>
+            <!-- Dropdown menu -->
+            <div id="dropdownAvatar" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 white:bg-gray-700 white:divide-gray-600">
+                <div class="px-4 py-3 text-sm text-gray-900 white:text-white">
+                <div>{{ username }}</div>
+                </div>
+                <ul class="py-2 text-sm text-gray-700 white:text-gray-200" aria-labelledby="dropdownUserAvatarButton">
+                <li>
+                    <a href="{{ url_for('profile') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</a>
+                </li>           
                 </ul>
-            {% endif %}
-        {% endwith %}
-        {% block content %}{% endblock %}
+                <div class="py-2">
+                <a href="{{ url_for('logout') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 white:text-gray-200 dark:hover:text-white">Sign out</a>
+                </div>
+            </div>
+    </header>
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="w-64 bg-white shadow-lg pt-18 text-lg font-medium">
+            <nav class="mt-10">
+                <ul>
+                    <li>
+                        <a href="{{ url_for('home') }}" class="ml-3 block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-600 hover:text-white">Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('phishing_gamified') }}" class="ml-3 block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-600 hover:text-white">Phishing Game</a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('leaderboard') }}" class="ml-3 block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-600 hover:text-white">Leaderboards</a>
+                    </li>               
+                </ul>
+            </nav>
+        </div>
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Page Content -->
+            <main class="flex-1 overflow-y-auto p-6 pt-18">
+                {% block content %}{% endblock %}
+            </main>
+        </div>
     </div>
 </body>
 </html>
-

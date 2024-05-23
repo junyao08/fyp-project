@@ -1,10 +1,8 @@
 {% extends "base.html" %}
+{% block title %}Home{% endblock %}
 {% block content %}
-<h1>Welcome, {{ username }}!</h1>
-<p>Choose an option below:</p>
-<ul>
-    <li><a href="{{ url_for('phishing_gamified') }}">Phishing Gamified</a></li>
-    <li><a href="{{ url_for('leaderboard') }}">Leaderboard</a></li>
-    <li><a href="{{ url_for('profile') }}">Profile</a></li>
-</ul>
+<div class="p-6 bg-white shadow-md rounded-md">
+    <h1 class="text-3xl font-bold mb-4">Welcome to the Homepage</h1>
+    <p>This is the main content area. You can add anything you like here.</p>
+</div>
 {% endblock %}

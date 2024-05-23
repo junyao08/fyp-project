@@ -1,21 +1,47 @@
 {% extends "base.html" %}
+{% block title %}Leaderboards{% endblock %}
 {% block content %}
-<h1>Leaderboard</h1>
-<p>Check out the top performers in phishing awareness training:</p>
-<table>
-    <tr>
-        <th>Rank</th>
-        <th>Username</th>
-        <th>Score</th>
-        <th>Title</th>
-    </tr>
-    {% for entry in leaderboard %}
-    <tr>
-        <td>{{ entry.rank }}</td>
-        <td>{{ entry.username }}</td>
-        <td>{{ entry.points }}</td>
-        <td>{{ entry.title }}</td>
-    </tr>
-    {% endfor %}
-</table>
+<div class="p-6 bg-white shadow-md rounded-md">
+    <h1 class="text-3xl font-bold mb-4">Leaderboards</h1>
+    <div class="flex flex-col font-mono">
+        <div class="overflow-x-auto">
+            <div class="inline-block min-w-full align-middle">
+                <div class="overflow-hidden shadow">
+                    <table class="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-600">
+                        <thead class="bg-gray-100 white:bg-gray-700">
+                            <tr>
+                                <th scope="col" class="p-4">                                
+                                </th>
+                                <th scope="col" class="p-4 text-base font-medium text-left text-dark-500 uppercase white:text-dark-400">
+                                    Rank
+                                </th>
+                                <th scope="col" class="p-4 text-base font-medium text-left text-dark-500 uppercase white:text-gray-400">
+                                    Username
+                                </th>
+                                <th scope="col" class="p-4 text-base font-medium text-left text-dark-500 uppercase white:text-gray-400">
+                                    Score
+                                </th>
+                                <th scope="col" class="p-4 text-base font-medium text-left text-dark-500 uppercase white:text-gray-400">
+                                    Title
+                                </th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200 white:bg-gray-700 dark:divide-gray-700">                              
+                            {% for entry in leaderboard %}
+                            <tr class="hover:bg-gray-100 white:hover:bg-gray-700">
+                                <td class="w-4 p-4"></td>
+                                <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap white:text-gray-400"> {{ entry.rank }}</td>
+                                <td class="max-w-sm p-4 overflow-hidden text-base font-normal text-gray-500 truncate xl:max-w-xs white:text-gray-400"> {{ entry.username }}  </td>
+                                <td class="max-w-sm p-4 overflow-hidden text-base font-normal text-gray-500 truncate xl:max-w-xs white:text-gray-400"> {{ entry.points }}  </td>
+                                <td class="max-w-sm p-4 overflow-hidden text-base font-normal text-gray-500 truncate xl:max-w-xs white:text-gray-400"> {{ entry.title }}  </td>
+                            </tr>    
+                            {% endfor %}                 
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

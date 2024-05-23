@@ -27,7 +27,7 @@ init_db()
 @app.route('/')
 def home():
     if 'username' in session:
-        return render_template('home.html', username=session['username'])
+        return render_template('home.html', username=session['username'], )
     return redirect(url_for('login'))
 
 @app.route('/profile')

@@ -1,13 +1,22 @@
-{% extends "base.html" %}
+{% extends "base_no_sidebar.html" %}
+{% block title %}Login{% endblock %}
 {% block content %}
-<h1>Login</h1>
-<form method="post">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required>
-    <button type="submit">Login</button>
-    <a href="{{ url_for('register') }}">Register</a>
-
-</form>
+<div class="bg-white shadow-lg rounded-lg p-8">
+    <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Login</h2>
+    <form method="POST">
+        <div class="mb-4">
+            <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+            <input type="text" name="username" id="username" class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <div class="mb-6">
+            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+            <input type="password" name="password" id="password" class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-200 mb-4">Login</button>
+    </form>
+    <div class="text-center">
+        <p class="text-gray-700">Don't have an account?</p>
+        <a href="{{ url_for('register') }}" class="text-blue-600 hover:underline">Register</a>
+    </div>
+</div>
 {% endblock %}
