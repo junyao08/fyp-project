@@ -57,7 +57,8 @@ def login():
             session['username'] = username
             return redirect(url_for('home'))
         else:
-            flash('Invalid credentials')
+            flash('Invalid credentials', 'error')
+            return redirect(url_for('login'))
             
     return render_template('login.html')
 
@@ -77,10 +78,10 @@ def register():
         try:
             c.execute('INSERT INTO users (username, password, email, name, title, score) VALUES (?, ?, ?, ?, ?, ?)', (username, hashed_password, email, name, title, score))
             conn.commit()
-            flash('Registration successful, please log in.')
+            flash('Registration successful, please log in.', 'success')
             return redirect(url_for('login'))
         except sqlite3.IntegrityError:
-            flash('Username already exists')
+            flash('Username already exists', 'error')
         finally:
             conn.close()
     
@@ -99,13 +100,12 @@ def phishing_gamified():
             score = int(request.form['score'])
             # Set the title based on score points
             if score >= 80:
-                title = "Gorlock the destroyer"
+                title = "Professional"
             elif score >= 50:
-                title = "Caseoh"
-            elif score >= 10:
-                title = "Biggest L"
+                title = "Amateur"
             else:
                 title = "Rookie"
+                            
             conn = sqlite3.connect('users.db')
             c = conn.cursor()
             # Append the title and score on the current user into the database record.
