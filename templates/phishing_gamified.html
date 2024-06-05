@@ -50,7 +50,7 @@
         <!-- Questions will be dynamically inserted here -->
         </div>
         <input type="hidden" name="score" id="score" value="0">
-        <button type="submit" class="my-10 px-10 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Check</button>        
+        <button type="button" id="checkButton" class="my-10 px-10 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Check</button>        
     </form>
 </div>
 
@@ -71,14 +71,15 @@
 
 <script>
 
+// Display questions after user select the difficulty level, else it will show alert to choose a level
 document.getElementById('startButton').addEventListener('click', function() {
     var difficultyLevel = document.querySelector('input[name="difficultyLevel"]:checked');
     if (difficultyLevel) {
         document.getElementById('startContainer').style.display = 'none';
         document.getElementById('gameForm').style.display = 'block';
-        populateQuestions(difficultyLevel.value);
+        initializeGame(difficultyLevel.value);
     } else {
-        alert('Please select a difficulty level to start the questionnaire.');
+        alert('Please select a difficulty level to start the assessment.');
     }
 });
 
@@ -91,6 +92,26 @@ const beginnerQuestions = [
             { text: "Hypertext Markup Language", correct: true },
             { text: "Hyper Tool Multi-language", correct: false },
             { text: "Hyperlink and Text Manipulation Language", correct: false }
+        ]
+    },
+    {
+        question: "What does CSS stand for?",
+        hint: "CSS is used for describing the look and formatting of a document written in a markup language.",
+        explanation: "CSS stands for Cascading Style Sheets. It is used to style and layout web pages.",
+        answers: [
+            { text: "Cascading Style Sheets", correct: true },
+            { text: "Computer Style Sheets", correct: false },
+            { text: "Creative Style Sheets", correct: false }
+        ]
+    },
+    {
+        question: "What is JavaScript primarily used for?",
+        hint: "JavaScript is often used to create dynamic and interactive effects on web pages.",
+        explanation: "JavaScript is a programming language commonly used to create interactive effects within web browsers.",
+        answers: [
+            { text: "Adding interactivity to web pages", correct: true },
+            { text: "Styling web pages", correct: false },
+            { text: "Structuring web pages", correct: false }
         ]
     },
     // Add more beginner questions here
@@ -107,6 +128,26 @@ const intermediateQuestions = [
             { text: "A function that is used to close an open connection in a database", correct: false }
         ]
     },
+    {
+        question: "What is an API?",
+        hint: "An API allows different software systems to communicate with each other.",
+        explanation: "API stands for Application Programming Interface. It is a set of rules that allows one software application to interact with another.",
+        answers: [
+            { text: "Application Programming Interface", correct: true },
+            { text: "Applied Protocol Interaction", correct: false },
+            { text: "Automated Program Interface", correct: false }
+        ]
+    },
+    {
+        question: "What is the purpose of a RESTful API?",
+        hint: "RESTful APIs follow a specific set of rules for creating web services.",
+        explanation: "A RESTful API is an application program interface (API) that uses HTTP requests to GET, PUT, POST, and DELETE data. It is designed to take advantage of existing protocols.",
+        answers: [
+            { text: "To allow communication between clients and servers using HTTP", correct: true },
+            { text: "To create complex user interfaces", correct: false },
+            { text: "To store data in a database", correct: false }
+        ]
+    },
     // Add more intermediate questions here
 ];
 
@@ -121,10 +162,36 @@ const professionalQuestions = [
             { text: "Prototypal inheritance is not supported in JavaScript.", correct: false }
         ]
     },
+    {
+        question: "What is a JavaScript Promise?",
+        hint: "Promises are used to handle asynchronous operations.",
+        explanation: "A Promise is an object representing the eventual completion or failure of an asynchronous operation. It allows you to associate handlers with an asynchronous action's eventual success value or failure reason.",
+        answers: [
+            { text: "An object representing the eventual completion or failure of an asynchronous operation", correct: true },
+            { text: "A method to execute synchronous code", correct: false },
+            { text: "A function that resolves immediately", correct: false }
+        ]
+    },
+    {
+        question: "What is the significance of the 'this' keyword in JavaScript?",
+        hint: "The 'this' keyword refers to the object it belongs to.",
+        explanation: "In JavaScript, the 'this' keyword refers to the object it belongs to. It has different values depending on where it is used.",
+        answers: [
+            { text: "Refers to the object it belongs to", correct: true },
+            { text: "Refers to the global object", correct: false },
+            { text: "Refers to the function it is used in", correct: false }
+        ]
+    },
     // Add more professional questions here
 ];
 
-function populateQuestions(difficulty) {
+
+let shuffledQuestions;
+let currentQuestionIndex;
+let score;
+let currentAnswerCorrect = false;
+
+function initializeGame(difficulty) {
     let questions;
 
     if (difficulty === 'beginner') {
@@ -135,108 +202,77 @@ function populateQuestions(difficulty) {
         questions = professionalQuestions;
     }
 
-    const questionContainer = document.getElementById('question-container');
+    shuffledQuestions = shuffle([...questions]);
+    currentQuestionIndex = 0;
+    score = 0;
 
-    questions.forEach(function(question) {
-        questionContainer.innerHTML += `
-            <div>
-                <p class="text-2xl mb-5">${question.question}</p>
-                ${question.answers.map((answer, index) => `
-                    <div>
-                        <input type="radio" id="answer-${index}" name="answer" value="${index}">
-                        <label class="text-base" for="answer-${index}">${answer.text}</label>
-                    </div>
-                `).join('')}
-            </div>
-        `;
-    });
+    populateQuestion(shuffledQuestions[currentQuestionIndex]);
 }
 
-let wrongAnswer = false;
+function populateQuestion(question) {
+    const questionContainer = document.getElementById('question-container');
+    questionContainer.innerHTML = `
+        <div>
+            <p class="text-2xl mb-5">${question.question}</p>
+            ${question.answers.map((answer, index) => `
+                <div>
+                    <input type="radio" id="answer-${index}" name="answer" value="${index}">
+                    <label class="text-base" for="answer-${index}">${answer.text}</label>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
 
-document.getElementById('popup-close').addEventListener('click', function() {
+document.getElementById('checkButton').addEventListener('click', () => {
+    const selectedAnswer = document.querySelector('input[name="answer"]:checked');
+    if (selectedAnswer) {
+        const index = parseInt(selectedAnswer.value);
+        const currentQuestion = shuffledQuestions[currentQuestionIndex];
+        if (currentQuestion.answers[index].correct) {
+            currentAnswerCorrect = true;
+            score += 1;
+            showAlert("Explanation", currentQuestion.explanation);
+        } else {
+            currentAnswerCorrect = false;
+            showAlert("Hint", currentQuestion.hint);
+        }
+    } else {
+        alert('Please select an answer.');
+    }
+});
+
+document.getElementById('popup-close').addEventListener('click', () => {
     document.getElementById('popup').style.display = 'none';
-    if (!wrongAnswer) {
+    if (currentAnswerCorrect) {
         currentQuestionIndex++;
-        if (currentQuestionIndex < questions.length) {
-            showQuestion(shuffledQuestions[currentQuestionIndex]);
+        if (currentQuestionIndex < shuffledQuestions.length) {
+            populateQuestion(shuffledQuestions[currentQuestionIndex]);
         } else {
             document.getElementById('score').value = score;
             document.getElementById('gameForm').submit();
         }
     }
-    // Reset the wrongAnswer flag
-    wrongAnswer = false;
-    updateButton(); // Update the button text
 });
 
-document.getElementById('gameForm').addEventListener('submit', (event) => {
-    event.preventDefault();
-    const selectedAnswerIndex = document.querySelector('input[name="answer"]:checked').value;
-    if (questions[currentQuestionIndex].answers[selectedAnswerIndex].correct) {
-        score += 10;
-        showAlert("Explanation", questions[currentQuestionIndex].explanation);
-        // Reset the wrongAnswer flag
-        wrongAnswer = false;
-    } else {
-        showAlert("Hint", questions[currentQuestionIndex].hint);
-        // Set the wrongAnswer flag
-        wrongAnswer = true;
-    }
-    updateButton(); // Update the button text
-});
-
-function updateButton() {
-    const button = document.getElementById('popup-close');
-    if (wrongAnswer) {
-        button.textContent = "Try Again";
-    } else {
-        button.textContent = "Next";
-    }
-}
-        
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
-
-    // While there remain elements to shuffle...
     while (0 !== currentIndex) {
-
-        // Pick a remaining element...
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
-
-        // And swap it with the current element.
         temporaryValue = array[currentIndex];
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
     }
-
     return array;
 }
 
-// Shuffle the questions
-let shuffledQuestions = shuffle(questions);
-
-let currentQuestionIndex = 0;
-let score = 0;
-
-
-function showQuestion(question) {
-    const questionContainer = document.getElementById('question-container');
-    questionContainer.innerHTML = `
-    <div>
-        <p class="text-2xl mb-5">${question.question}</p>
-        ${question.answers.map((answer, index) => `
-            <div>
-                <input type="radio" id="answer-${index}" name="answer" value="${index}">
-                <label class="text-base" for="answer-${index}">${answer.text}</label>
-            </div>
-        `).join('')}
-    </div>
-    `;
+function showAlert(title, message) {
+    document.getElementById('popup-title').textContent = title;
+    document.getElementById('popup-message').textContent = message;
+    document.getElementById('popup').style.display = 'block';
 }
 
-showQuestion(shuffledQuestions[currentQuestionIndex]);
 </script>
 
 {% endblock %}
