@@ -70,7 +70,7 @@ def register():
         email = request.form['email']
         name = request.form['name']
         score = 0.0
-        title = ""
+        title = " "
         hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
         
         conn = sqlite3.connect('users.db')
