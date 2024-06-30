@@ -1,9 +1,17 @@
 from flask import Flask, render_template, redirect, url_for, request, session, flash, request
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
+import os
+import logging
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
+
+# Set up logging
+logging.basicConfig(filename='app.log', level=logging.INFO)
+
+# Use an absolute path for the database file
+DATABASE = os.path.join(app.root_path, 'users.db')
 
 def init_db():
     conn = sqlite3.connect('users.db')
@@ -16,7 +24,8 @@ def init_db():
             email TEXT NOT NULL UNIQUE,
             name TEXT NOT NULL,
             title TEXT NOT NULL,
-            score TEXT NOT NULL
+            score TEXT NOT NULL,
+            totalQuestionsAnswered TEXT NOT NULL
         )
     ''')
     conn.commit()
@@ -71,16 +80,19 @@ def register():
         name = request.form['name']
         score = 0.0
         title = " "
+        totalQuestionsAnswered = 0
         hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
         
         conn = sqlite3.connect('users.db')
+        logging.info(f"Connected to database: {conn}")
         c = conn.cursor()
         try:
-            c.execute('INSERT INTO users (username, password, email, name, title, score) VALUES (?, ?, ?, ?, ?, ?)', (username, hashed_password, email, name, title, score))
+            c.execute('INSERT INTO users (username, password, email, name, title, score, totalQuestionsAnswered) VALUES (?, ?, ?, ?, ?, ?, ?)', (username, hashed_password, email, name, title, score, totalQuestionsAnswered))
             conn.commit()
             flash('Registration successful, please log in.', 'success')
             return redirect(url_for('login'))
-        except sqlite3.IntegrityError:
+        except sqlite3.IntegrityError as e:
+            logging.error(f"Register error: {e}")
             flash('Username already exists', 'error')
         finally:
             conn.close()
@@ -94,34 +106,32 @@ def logout():
 
 @app.route('/phishing_gamified', methods=['GET', 'POST'])
 def phishing_gamified():
-    title = ""
     if 'username' in session:
         if request.method == 'POST':
             score = float(request.form['score'])
-            title = ""
+            totalQuestionsAnswered = request.form['totalQuestionsAnswered']
+            title = request.form['title']
             conn = sqlite3.connect('users.db')
             c = conn.cursor()
             # Append the title and score on the current user into the database record.
-            c.execute('UPDATE users SET title = ?, score = ? WHERE username = ?', (title, score, session['username']))
+            c.execute('UPDATE users SET title = ?, score = ?, totalQuestionsAnswered = ? WHERE username = ?', (title, score, totalQuestionsAnswered, session['username']))
             conn.commit()
             conn.close()
             return redirect(url_for('leaderboard'))
         return render_template('phishing_gamified.html', username=session['username'])
     return redirect(url_for('login'))
 
-
-
 @app.route('/leaderboard')
 def leaderboard():
     if 'username' in session:
         conn = sqlite3.connect('users.db')
         cur = conn.cursor()
-        cur.execute('SELECT username, score, title FROM users ORDER BY score DESC')
+        cur.execute('SELECT username, score, title, totalQuestionsAnswered FROM users ORDER BY score DESC')
         leaderboard_data = cur.fetchall()
         conn.close()
 
         # Creating a rank list for the leaderboard
-        ranked_leaderboard = [{'rank': i+1, 'username': row[0], 'points': row[1], 'title': row[2]} for i, row in enumerate(leaderboard_data)]
+        ranked_leaderboard = [{'rank': i+1, 'username': row[0], 'points': row[1], 'title': row[2], 'totalQuestionsAnswered': row[3]} for i, row in enumerate(leaderboard_data)]
 
         return render_template('leaderboard.html', username=session['username'], leaderboard=ranked_leaderboard)
     return redirect(url_for('login'))
