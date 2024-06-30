@@ -3,6 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
 import os
 import logging
+import Extensions.title_calculation
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -25,7 +26,8 @@ def init_db():
             name TEXT NOT NULL,
             title TEXT NOT NULL,
             score TEXT NOT NULL,
-            totalQuestionsAnswered TEXT NOT NULL
+            totalQuestionsAnswered TEXT NOT NULL,
+            totalQuestions TEXT NOT NULL
         )
     ''')
     conn.commit()
@@ -46,7 +48,17 @@ def profile():
         cur = conn.cursor()
         cur.execute('SELECT * FROM users WHERE username = ?', (session['username'],))
         user = cur.fetchone()
+        
+        totalQuestionsAnswered = float(user[7])
+        totalQuestions = int(user[8])
+        
+        setTitle = Extensions.title_calculation.title(totalQuestions, totalQuestionsAnswered)
+        
+        cur.execute('UPDATE users SET title = ? WHERE username = ?', (setTitle, session['username']))
+        conn.commit()
         conn.close()
+        
+        
         return render_template('profile.html', user=user)
     return redirect(url_for('login'))
 
@@ -81,13 +93,14 @@ def register():
         score = 0.0
         title = " "
         totalQuestionsAnswered = 0
+        totalQuestions = 0
         hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
         
         conn = sqlite3.connect('users.db')
         logging.info(f"Connected to database: {conn}")
         c = conn.cursor()
         try:
-            c.execute('INSERT INTO users (username, password, email, name, title, score, totalQuestionsAnswered) VALUES (?, ?, ?, ?, ?, ?, ?)', (username, hashed_password, email, name, title, score, totalQuestionsAnswered))
+            c.execute('INSERT INTO users (username, password, email, name, title, score, totalQuestionsAnswered, totalQuestions) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', (username, hashed_password, email, name, title, score, totalQuestionsAnswered, totalQuestions))
             conn.commit()
             flash('Registration successful, please log in.', 'success')
             return redirect(url_for('login'))
@@ -108,13 +121,19 @@ def logout():
 def phishing_gamified():
     if 'username' in session:
         if request.method == 'POST':
-            score = float(request.form['score'])
-            totalQuestionsAnswered = request.form['totalQuestionsAnswered']
-            title = request.form['title']
+            new_score = float(request.form['score'])
+            new_totalQuestionsAnswered = int(request.form['totalQuestionsAnswered'])
+            totalQuestions = int(request.form['totalQuestions'])
             conn = sqlite3.connect('users.db')
             c = conn.cursor()
-            # Append the title and score on the current user into the database record.
-            c.execute('UPDATE users SET title = ?, score = ?, totalQuestionsAnswered = ? WHERE username = ?', (title, score, totalQuestionsAnswered, session['username']))
+            # Retrieve the current score and totalQuestionsAnswered from the database
+            c.execute('SELECT score, totalQuestionsAnswered FROM users WHERE username = ?', (session['username'],))
+            current_score, current_totalQuestionsAnswered = c.fetchone()
+            # Add the new values to the current values
+            updated_score = float(current_score) + new_score
+            updated_totalQuestionsAnswered = int(current_totalQuestionsAnswered) + new_totalQuestionsAnswered
+            # Update the database with the new totals
+            c.execute('UPDATE users SET score = ?, totalQuestionsAnswered = ?, totalQuestions = ? WHERE username = ?', (updated_score, updated_totalQuestionsAnswered, totalQuestions, session['username']))
             conn.commit()
             conn.close()
             return redirect(url_for('leaderboard'))
@@ -126,12 +145,12 @@ def leaderboard():
     if 'username' in session:
         conn = sqlite3.connect('users.db')
         cur = conn.cursor()
-        cur.execute('SELECT username, score, title, totalQuestionsAnswered FROM users ORDER BY score DESC')
+        cur.execute('SELECT username, score, title, totalQuestionsAnswered, totalQuestions FROM users ORDER BY score DESC')
         leaderboard_data = cur.fetchall()
         conn.close()
 
         # Creating a rank list for the leaderboard
-        ranked_leaderboard = [{'rank': i+1, 'username': row[0], 'points': row[1], 'title': row[2], 'totalQuestionsAnswered': row[3]} for i, row in enumerate(leaderboard_data)]
+        ranked_leaderboard = [{'rank': i+1, 'username': row[0], 'points': row[1], 'title': row[2], 'totalQuestionsAnswered': row[3], 'totalQuestions': row[4]} for i, row in enumerate(leaderboard_data)]
 
         return render_template('leaderboard.html', username=session['username'], leaderboard=ranked_leaderboard)
     return redirect(url_for('login'))

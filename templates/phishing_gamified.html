@@ -52,7 +52,7 @@
             </div>
             <input type="hidden" name="score" id="score" value="0">
             <input type="hidden" name="totalQuestionsAnswered" id="totalQuestionsAnswered" value="0">
-            <input type="hidden" name="title" id="title" value="">
+            <input type="hidden" name="totalQuestions" id="totalQuestions" value="0">
             <button type="button" id="checkButton" class="my-10 px-10 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Check</button>        
         </form>
     </div>
@@ -195,9 +195,11 @@
     let score;
     let currentAnswerCorrect = false;
     let currentDifficulty;
-    let totalQuestionsAnswered = 0;
-    const totalQuestions = beginnerQuestions.length + intermediateQuestions.length + professionalQuestions.length;
+    let totalQuestionsAnswered;
 
+    const totalQuestions = beginnerQuestions.length + intermediateQuestions.length + professionalQuestions.length;
+    document.getElementById('totalQuestions').value = totalQuestions;
+        
     function initializeGame(difficulty) {
         currentDifficulty = difficulty;
         let questions;
@@ -244,7 +246,11 @@
             const correct = currentQuestion.answers[index].correct;
     
             updateScore(correct, currentQuestion.shuffle);
-            title(totalQuestions, totalQuestionsAnswered);
+
+            //To calculate the total answered question from users
+            totalQuestionsAnswered++;
+            document.getElementById('totalQuestionsAnswered').value = totalQuestionsAnswered;
+            console.log(totalQuestionsAnswered);
 
             if (correct) {
                 currentAnswerCorrect = true;
@@ -269,10 +275,6 @@
                 document.getElementById('score').value = score.toFixed(2);
                 document.getElementById('gameForm').submit();
             }
-             //To calculate the total answered question from users
-            totalQuestionsAnswered++;
-            document.getElementById('totalQuestionsAnswered').value = totalQuestionsAnswered;
-            console.log(totalQuestionsAnswered);
         }
     
     });
@@ -310,31 +312,7 @@
         document.getElementById('popup').style.display = 'block';
     }
     
-    function title(totalQuestions, totalQuestionsAnswered) {
-        var twentyPercent = 0.2 * 100;
-        var fortyPercent = 0.4 * 100;
-        var sixtyPercent = 0.6 * 100;
-        var eightyPercent = 0.8 * 100;
-        
-        var calculatedTitle;
-        var tracker = totalQuestionsAnswered / totalQuestions;
 
-        if (tracker < twentyPercent) {
-            calculatedTitle = "Phishing Awareness Level 1: The Unaware User";
-        } else if (tracker > twentyPercent && tracker < fortyPercent) {
-            calculatedTitle = "Phishing Awareness Level 2: The Cautious Beginner";
-        } else if (tracker > fortyPercent && tracker < sixtyPercent) {
-            calculatedTitle = "Phishing Awareness Level 3: The Informed User";
-        } else if (tracker > sixtyPercent && tracker < eightyPercent) {
-            calculatedTitle = "Phishing Awareness Level 4: The Savvy Defender";
-        } else {
-            calculatedTitle = "Phishing Awareness Level 5: The Expert Analyst";
-        }
-
-        console.log(calculatedTitle);
-        document.getElementById('title').value = calculatedTitle;
-
-    }
 
     </script>
     
