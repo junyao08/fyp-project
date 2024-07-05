@@ -2,14 +2,10 @@ from flask import Flask, render_template, redirect, url_for, request, session, f
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
 import os
-import logging
 import Extensions.title_calculation
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
-
-# Set up logging
-logging.basicConfig(filename='app.log', level=logging.INFO)
 
 # Use an absolute path for the database file
 DATABASE = os.path.join(app.root_path, 'users.db')
@@ -97,7 +93,6 @@ def register():
         hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
         
         conn = sqlite3.connect('users.db')
-        logging.info(f"Connected to database: {conn}")
         c = conn.cursor()
         try:
             c.execute('INSERT INTO users (username, password, email, name, title, score, totalQuestionsAnswered, totalQuestions) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', (username, hashed_password, email, name, title, score, totalQuestionsAnswered, totalQuestions))
@@ -105,7 +100,6 @@ def register():
             flash('Registration successful, please log in.', 'success')
             return redirect(url_for('login'))
         except sqlite3.IntegrityError as e:
-            logging.error(f"Register error: {e}")
             flash('Username already exists', 'error')
         finally:
             conn.close()
