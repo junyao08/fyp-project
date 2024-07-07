@@ -6,27 +6,35 @@
     <div class="col-span-2">
         <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 ">
             <h3 class="mb-4 text-xl font-semibold white:text-dark">General information</h3>
-            <form action="#">
+            <form method="POST" action="{{ url_for('profile') }}">
                 <div class="grid grid-cols-6 gap-6">
                     <div class="col-span-6 sm:col-span-3">
-                        <label for="first-name" class="block mb-2 text-sm font-medium text-gray-900 white:text-dark">Name: {{ user[1]}}</label>
+                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 white:text-dark">Name</label>
+                        <input type="text" id="name" name="name" value="{{ user[4] }}" class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" required>
                     </div>
                     <div class="col-span-6 sm:col-span-3">
-                        <label for="last-name" class="block mb-2 text-sm font-medium text-gray-900 white:text-dark">Email: {{user[3]}}</label>
+                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 white:text-dark">Email</label>
+                        <input type="text" id="email" value="{{user[3]}}" class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" readonly>
                     </div>
                     <div class="col-span-6 sm:col-span-3">
-                        <label for="country" class="block mb-2 text-sm font-medium text-gray-900 white:text-dark">Username: {{user[4]}}</label>
+                        <label for="username" class="block mb-2 text-sm font-medium text-gray-900 white:text-dark">Username</label>
+                        <input type="text" id="username" value="{{user[1]}}" class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" readonly>
                     </div>
                     <div class="col-span-6 sm:col-span-3">
-                        <label for="city" class="block mb-2 text-sm font-medium text-gray-900 white:text-dark">Title: {{user[5]}}</label>
+                        <label for="title" class="block mb-2 text-sm font-medium text-gray-900 white:text-dark">Title</label>
+                        <input type="text" id="title" value="{{user[5]}}" class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" readonly>
                     </div>
                     <div class="col-span-6 sm:col-span-3">
-                        <label for="address" class="block mb-2 text-sm font-medium text-gray-900 white:text-dark">Score: {{user[6]}}</label>
-                    </div>                                  
+                        <label for="score" class="block mb-2 text-sm font-medium text-gray-900 white:text-dark">Score</label>
+                        <input type="text" id="score" value="{{user[6]}}" class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" readonly>
+                    </div>
+                    
+                </div>
+                <div class="col-span-6 sm:col-span-3 mt-1">
+                    <button type="submit" class="my-10 px-10 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Update Name</button>        
                 </div>
             </form>
         </div>
     </div>
 </div>
 {% endblock %}
-
