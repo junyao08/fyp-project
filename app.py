@@ -16,9 +16,9 @@ app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
-app.config['MAIL_USERNAME'] = 'junyao5071@gmail.com'
-app.config['MAIL_PASSWORD'] = 'bzwk fspw dvla pjkc'
-app.config['MAIL_DEFAULT_SENDER'] = 'sixybeast@gmail.com'
+app.config['MAIL_USERNAME'] = 'phishproofweb@gmail.com'
+app.config['MAIL_PASSWORD'] = 'wmul hxsj enrr cnty'
+app.config['MAIL_DEFAULT_SENDER'] = 'phishproofweb@gmail.com'
 
 mail = Mail(app)
 
