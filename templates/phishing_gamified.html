@@ -87,75 +87,636 @@
     const beginnerQuestions = [
         {
             shuffle: true,
-            question: "What is HTML?",
-            hint: "HTML is a markup language used for creating web pages.",
-            explanation: "HTML stands for HyperText Markup Language. It is the standard markup language for creating web pages.",
+            question: "What is phishing?",
+            hint: "Think about what cybercriminals might do to trick people into giving away personal information.",
+            explanation: "The correct answer is B. Phishing is a form of cyber attack that uses fraudulent emails or websites to steal sensitive information, such as usernames, passwords, and credit card details. It is a common method used by cybercriminals to deceive individuals and gain access to personal data.",
             answers: [
-                { text: "Hypertext Markup Language", correct: true },
-                { text: "Hyper Tool Multi-language", correct: false },
-                { text: "Hyperlink and Text Manipulation Language", correct: false }
-            ]
-        },
-        {
-            shuffle: false,
-            question: "What does CSS stand for? - BONUS",
-            hint: "CSS is used for describing the look and formatting of a document written in a markup language.",
-            explanation: "CSS stands for Cascading Style Sheets. It is used to style and layout web pages.",
-            answers: [
-                { text: "Cascading Style Sheets", correct: true },
-                { text: "Computer Style Sheets", correct: false },
-                { text: "Creative Style Sheets", correct: false }
+                { text: "A. A technique used to catch fish using a rod and bait", correct: false },
+                { text: "B. A form of cyber attack that uses fraudulent emails or websites to steal sensitive information.", correct: true },
+                { text: "C. A type of malware that encrypts files on a user's computer.", correct: false },
+                { text: "D. A method of improving website ranking on search engines.", correct: false }
             ]
         },
         {
             shuffle: true,
-            question: "What is JavaScript primarily used for?",
-            hint: "JavaScript is often used to create dynamic and interactive effects on web pages.",
-            explanation: "JavaScript is a programming language commonly used to create interactive effects within web browsers.",
+            question: "Which technique is commonly used in phishing attacks?",
+            hint: "Consider what action a cybercriminal might take to directly interact with victims.",
+            explanation: "The correct answer is C. Sending malicious links through emails is a common technique in phishing attacks. These links often lead to fake websites that look legitimate and prompt users to enter sensitive information, which is then stolen by the attacker.",
             answers: [
-                { text: "Adding interactivity to web pages", correct: true },
-                { text: "Styling web pages", correct: false },
-                { text: "Structuring web pages", correct: false }
+                { text: "A. DNS Spoofing", correct: false },
+                { text: "B. Keylogging", correct: false },
+                { text: "C. Sending malicious links through emails", correct: true },
+                { text: "D. Denial of Service (DoS) attacks", correct: false }
             ]
         },
-        // Add more beginner questions here
+        {
+            shuffle: true,
+            question: "You receive an email from what appears to be your bank asking you to update your account information by clicking on a link. What should you do?",
+            hint: "Think about how you can verify if the email is genuinely from your bank.",
+            explanation: "The correct answer is C. Contact your bank using a phone number you know is legitimate to verify the email. This ensures that you are speaking directly with your bank and not falling for a phishing scam.",
+            answers: [
+                { text: "A. Click on the link and enter your details immediately.", correct: false },
+                { text: "B. Ignore the email completely.", correct: false },
+                { text: "C. Contact your bank using a phone number you know is legitimate to verify the email.", correct: true },
+                { text: "D. Forward the email to your friends to warn them.", correct: false }
+            ]
+        },
+        {
+            shuffle: true,
+            question: "What does the term 'spear phishing' refer to?",
+            hint: "Consider how the term 'spear' might suggest something more focused or directed.",
+            explanation: "The correct answer is B. Spear phishing refers to a phishing attack that specifically targets a particular individual or organization. Unlike regular phishing, which is more general, spear phishing is tailored to the victim, often using personalized information to appear more convincing.",
+            answers: [
+                { text: "A. A phishing attack targeting a wide range of individuals.", correct: false },
+                { text: "B. A phishing attack that specifically targets a particular individual or organization.", correct: true },
+                { text: "C. A type of attack that involves physical threats.", correct: false },
+                { text: "D. A technique used to spread malware indiscriminately.", correct: false }
+            ]
+        },
+        {
+            shuffle: true,
+            question: "Which of the following is NOT typically a sign of a phishing email?",
+            hint: "Consider what elements might be included to make an email appear legitimate.",
+            explanation: "The correct answer is C. A known contact's name in the email signature is not typically a sign of a phishing email. Phishing emails often contain urgent language, poor grammar, and requests for sensitive information. While attackers may use a known contact's name, the presence of this alone does not indicate phishing without other suspicious signs.",
+            answers: [
+                { text: "A. Urgent or threatening language.", correct: false },
+                { text: "B. Poor grammar and spelling mistakes.", correct: false },
+                { text: "C. A known contact's name in the email signature.", correct: true },
+                { text: "D. Requests for personal or financial information.", correct: false }
+            ]
+        },
+        {
+            shuffle: true,
+            question: "What is the primary goal of a phishing attack?",
+            hint: "Think about what valuable assets a cybercriminal might want from a victim.",
+            explanation: "The correct answer is B. The primary goal of a phishing attack is to steal sensitive information such as passwords, credit card numbers, and other personal data.",
+            answers: [
+                { text: "A. To infect the victim's computer with a virus.", correct: false },
+                { text: "B. To steal sensitive information such as passwords and credit card numbers.", correct: true },
+                { text: "C. To crash the victim's computer.", correct: false },
+                { text: "D. To monitor the victim's internet usage.", correct: false }
+            ]
+        },
+        {
+            shuffle: true,
+            question: "You receive an unexpected email from a popular online store claiming you have won a gift card. The email asks you to click a link to claim your prize. What should you do?",
+            hint: "Consider the safest way to verify the authenticity of the email.",
+            explanation: "The correct answer is D. Verify the email's legitimacy by contacting the online store through their official website. This ensures you are dealing with the actual company and not a phishing scam.",
+            answers: [
+                { text: "A. Click the link and follow the instructions to claim your prize.", correct: false },
+                { text: "B. Delete the email without opening it.", correct: false },
+                { text: "C. Forward the email to your friends.", correct: false },
+                { text: "D. Verify the email's legitimacy by contacting the online store through their official website.", correct: true }
+            ]
+        },
+        {
+            shuffle: true,
+            question: "What is 'pharming' in the context of phishing?",
+            hint: "Think about how a user might be unknowingly directed to a malicious website.",
+            explanation: "The correct answer is B. Pharming is a technique that redirects users to fake websites without their knowledge, typically by manipulating DNS settings or exploiting vulnerabilities.",
+            answers: [
+                { text: "A. A type of phishing that uses phone calls to trick victims.", correct: false },
+                { text: "B. A technique that redirects users to fake websites without their knowledge.", correct: true },
+                { text: "C. A method of installing malware on a user's device.", correct: false },
+                { text: "D. A process of harvesting crops.", correct: false }
+            ]
+        },
+        {
+            shuffle: true,
+            question: "Which of the following is a common characteristic of phishing emails?",
+            hint: "Think about how a phishing email might address many recipients at once.",
+            explanation: "The correct answer is B. Generic greetings such as 'Dear Customer' are common in phishing emails because they are often sent to a large number of recipients and do not use personalized greetings.",
+            answers: [
+                { text: "A. Use of technical jargon and complex language.", correct: false },
+                { text: "B. Generic greetings such as 'Dear Customer.'", correct: true },
+                { text: "C. References to recent transactions you recognize.", correct: false },
+                { text: "D. Messages written in a foreign language.", correct: false }
+            ]
+        },
+        {
+            shuffle: true,
+            question: "You receive a text message from an unknown number claiming to be from your bank, asking you to confirm your account details to prevent suspension. What should you do?",
+            hint: "Consider the safest way to verify the authenticity of the text message.",
+            explanation: "The correct answer is C. Contact your bank using a known, official number to verify the message. This ensures you are communicating with the legitimate bank and not falling for a phishing scam.",
+            answers: [
+                { text: "A. Reply with your account details immediately.", correct: false },
+                { text: "B. Ignore the message.", correct: false },
+                { text: "C. Contact your bank using a known, official number to verify the message.", correct: true },
+                { text: "D. Forward the message to your contacts as a warning.", correct: false }
+            ]
+        },
+        {
+            shuffle: true,
+            question: "What is a 'clone phishing' attack?",
+            hint: "Think about how a legitimate-looking email might be used to trick a victim.",
+            explanation: "The correct answer is B. In a clone phishing attack, a legitimate email is copied and slightly altered to include malicious links. The attacker then sends this clone to the victim to deceive them into clicking on the malicious content.",
+            answers: [
+                { text: "A. An attack where malware is cloned onto a victim's device.", correct: false },
+                { text: "B. An attack where a legitimate email is copied and slightly altered to include malicious links.", correct: true },
+                { text: "C. An attack where a victim's computer is cloned.", correct: false },
+                { text: "D. An attack where spam emails are sent in bulk.", correct: false }
+            ]
+        },
+        {
+            shuffle: true,
+            question: "What is 'vishing'?",
+            hint: "Consider the communication medium used in this type of phishing.",
+            explanation: "The correct answer is B. Vishing refers to phishing attacks conducted via voice calls. Attackers use phone calls to trick victims into providing personal information.",
+            answers: [
+                { text: "A. Phishing attacks conducted via email.", correct: false },
+                { text: "B. Phishing attacks conducted via voice calls.", correct: true },
+                { text: "C. Phishing attacks targeting financial institutions.", correct: false },
+                { text: "D. Phishing attacks using social media.", correct: false }
+            ]
+        },
+        {
+            shuffle: true,
+            question: "You receive an email from a coworker asking you to review an attached document. The email seems slightly out of character for them. What should you do?",
+            hint: "Consider how to verify the authenticity of the email before taking action.",
+            explanation: "The correct answer is D. Contact your coworker through a different, verified method to confirm they sent the email. This helps ensure that the email is legitimate and not part of a phishing attempt.",
+            answers: [
+                { text: "A. Open the attachment to review the document.", correct: false },
+                { text: "B. Delete the email immediately.", correct: false },
+                { text: "C. Reply to the email asking for more information.", correct: false },
+                { text: "D. Contact your coworker through a different, verified method to confirm they sent the email.", correct: true }
+            ]
+        },
+        {
+            shuffle: true,
+            question: "Which method is NOT typically used in phishing attacks?",
+            hint: "Consider the primary goals of phishing and how attackers achieve them.",
+            explanation: "The correct answer is D. Crashing the victim's computer with a virus is not typically a method used in phishing attacks, which aim to steal information rather than cause immediate damage.",
+            answers: [
+                { text: "A. Creating fake websites that mimic legitimate ones.", correct: false },
+                { text: "B. Sending malicious attachments through email.", correct: false },
+                { text: "C. Using legitimate company logos and branding.", correct: false },
+                { text: "D. Crashing the victim's computer with a virus.", correct: true }
+            ]
+        },
+        {
+            shuffle: true,
+            question: "What is 'whaling' in the context of phishing?",
+            hint: "Consider the size and importance implied by the term 'whaling.'",
+            explanation: "The correct answer is B. Whaling refers to phishing attacks that target high-profile individuals like executives or other senior figures within an organization, often using highly personalized tactics.",
+            answers: [
+                { text: "A. A phishing attack targeting the general public.", correct: false },
+                { text: "B. A phishing attack targeting high-profile individuals like executives.", correct: true },
+                { text: "C. A phishing attack conducted through social media.", correct: false },
+                { text: "D. A phishing attack that uses malware to steal information.", correct: false }
+            ]
+        },
+        {
+            shuffle: true,
+            question: "An email claims your social media account will be locked unless you verify your password by clicking a link. What should you do?",
+            hint: "Consider how to verify the threat and protect your account without using the provided link.",
+            explanation: "The correct answer is C. Change your password immediately using the social media site’s official app or website. This ensures your account is secure without interacting with potentially malicious links.",
+            answers: [
+                { text: "A. Click the link and enter your password to keep your account active.", correct: false },
+                { text: "B. Ignore the email completely.", correct: false },
+                { text: "C. Change your password immediately using the social media site’s official app or website.", correct: true },
+                { text: "D. Forward the email to your friends.", correct: false }
+            ]
+        },
+        {
+            shuffle: true,
+            question: "What is the purpose of 'email spoofing' in phishing?",
+            hint: "Think about how attackers might make their emails more convincing.",
+            explanation: "The correct answer is C. The purpose of email spoofing in phishing is to make the email appear to come from a trusted source, thereby increasing the chances that the recipient will trust the email and take the desired action.",
+            answers: [
+                { text: "A. To encrypt the email contents.", correct: false },
+                { text: "B. To hide the email sender's identity.", correct: false },
+                { text: "C. To make the email appear to come from a trusted source", correct: true },
+                { text: "D. To scan for viruses in the email.", correct: false }
+            ]
+        },
+        {
+            shuffle: true,
+            question: "What is a 'phishing kit'?",
+            hint: "Consider what attackers might use to streamline their phishing efforts.",
+            explanation: "The correct answer is B. A phishing kit is a collection of software and resources used by attackers to create phishing websites and emails. These kits often include templates and automated tools to help criminals launch phishing campaigns more easily.",
+            answers: [
+                { text: "A. A tool used by legitimate companies to secure emails.", correct: false },
+                { text: "B. A collection of software and resources used by attackers to create phishing websites and emails.", correct: true },
+                { text: "C. A set of guidelines for identifying phishing attacks.", correct: false },
+                { text: "D. A toolkit for encrypting email communications.", correct: false }
+            ]
+        },
+        {
+            shuffle: true,
+            question: "You receive a job offer via email from a company you did not apply to, asking for your personal information to proceed. What should you do?",
+            hint: "Consider how to verify the authenticity of the job offer.",
+            explanation: "The correct answer is A. Research the company and contact them through official channels to verify the offer. This ensures you are dealing with a legitimate job offer and not a phishing attempt.",
+            answers: [
+                { text: "A. Research the company and contact them through official channels to verify the offer.", correct: true },
+                { text: "B. Reply to the email asking for more details.", correct: false },
+                { text: "C. Provide your personal information to secure the job. ", correct: false },
+                { text: "D. Forward the email to your friends as a job opportunity.", correct: false }
+            ]
+        },
+        {
+            shuffle: true,
+            question: "What is 'tabnabbing' in phishing?",
+            hint: "Think about how an attacker might exploit open browser tabs.",
+            explanation: "The correct answer is A. Tabnabbing is a technique where a phishing website waits until the user navigates away and then changes its appearance to mimic a trusted site. When the user returns, they might not realize the site has changed and could enter sensitive information.",
+            answers: [
+                { text: "A. A technique where a phishing website waits until the user navigates away and then changes its appearance to mimic a trusted site.", correct: true },
+                { text: "B. A method of stealing cookies from a user's browser.", correct: false },
+                { text: "C. A form of phishing conducted through social media.", correct: false },
+                { text: "D. A technique used to spread malware through browser tabs.", correct: false }
+            ]
+        },
+        {
+            shuffle: false,
+            question: "Which of the following links is a phishing link? - BONUS",
+            hint: "Look closely at the domain name for any unusual spelling or characters.",
+            explanation: "The correct answer is C. https://www.go0gle.com/. This is a phishing link because it uses a zero (0) instead of an 'o' in 'google,'' which is a common tactic used by attackers to create links that look legitimate at first glance.",
+            answers: [
+                { text: "A. https://www.amazon.com/", correct: false },
+                { text: "B. https://secure.paypal.com/", correct: false },
+                { text: "C. https://www.go0gle.com/", correct: true },
+                { text: "D. https://www.microsoft.com/", correct: false }
+            ]
+        },
+        {
+            shuffle: false,
+            question: "Which of the following links is a phishing link?",
+            hint: "Pay attention to the domain name for any misspellings or substitutions.",
+            explanation: "The correct answer is C. https://www.faceb00k.com/. This is a phishing link because it uses zeros (0) instead of the letter 'o' in 'facebook,'' attempting to trick users into thinking its the official site.",
+            answers: [
+                { text: "A. https://www.bankofamerica.com/", correct: false },
+                { text: "B. https://login.apple.com/", correct: false },
+                { text: "C. https://www.faceb00k.com/", correct: true },
+                { text: "D. https://www.netflix.com/", correct: false }
+            ]
+        },
+        {
+            shuffle: false,
+            question: "Which of the following links is a phishing link?",
+            hint: "Check the domain for any small changes or substitutions in the spelling.",
+            explanation: "The correct answer is C. https://www.amaz0n.com/. This is a phishing link because it uses a zero (0) instead of an 'o' in 'amazon,'' mimicking the legitimate website to deceive users.",
+            answers: [
+                { text: "A. https://www.twitter.com/", correct: false },
+                { text: "B. https://secure.paypal.com/", correct: false },
+                { text: "C. https://www.amaz0n.com/", correct: true },
+                { text: "D. https://www.linkedin.com/", correct: false }
+            ]
+        },
+        {
+            shuffle: false,
+            question: "Which of the following links is a phishing link?",
+            hint: "Look for any numbers or unusual characters in place of letters in the domain name.",
+            explanation: "The correct answer is B. https://www.y0utube.com/. This is a phishing link because it uses a zero (0) instead of an 'o' in 'youtube,'' a tactic often used by cybercriminals to create deceptive links.",
+            answers: [
+                { text: "A. https://www.apple.com/", correct: false },
+                { text: "B. https://www.y0utube.com/", correct: true },
+                { text: "C. https://www.ebay.com/", correct: false },
+                { text: "D. https://www.reddit.com/", correct: false }
+            ]
+        },
+        {
+            shuffle: false,
+            question: "Which of the following links is a phishing link?",
+            hint: "Pay attention to the domain name for any non-standard characters or misspellings.",
+            explanation: "The correct answer is B. https://www.yah00.com/. This is a phishing link because it uses zeros (0) instead of the letter 'o' in 'yahoo,'' which is a common technique to trick users into thinking its the official site.",
+            answers: [
+                { text: "A. https://www.gmail.com/", correct: false },
+                { text: "B. https://www.yah00.com/", correct: true },
+                { text: "C. https://www.microsoft.com/", correct: false },
+                { text: "D. https://www.instagram.com/", correct: false }
+            ]
+        },
     ];
     
     const intermediateQuestions = [
-        {
-            question: "What is a closure in JavaScript?",
-            hint: "Closures are an important concept in JavaScript.",
-            explanation: "A closure is the combination of a function bundled together with references to its surrounding state.",
-            answers: [
-                { text: "A function that has access to its outer scope even after the outer scope has closed", correct: true },
-                { text: "A function that closes the browser window", correct: false },
-                { text: "A function that is used to close an open connection in a database", correct: false }
-            ]
-        },
-        {
-            question: "What is an API?",
-            hint: "An API allows different software systems to communicate with each other.",
-            explanation: "API stands for Application Programming Interface. It is a set of rules that allows one software application to interact with another.",
-            answers: [
-                { text: "Application Programming Interface", correct: true },
-                { text: "Applied Protocol Interaction", correct: false },
-                { text: "Automated Program Interface", correct: false }
-            ]
-        },
-        {
-            question: "What is the purpose of a RESTful API?",
-            hint: "RESTful APIs follow a specific set of rules for creating web services.",
-            explanation: "A RESTful API is an application program interface (API) that uses HTTP requests to GET, PUT, POST, and DELETE data. It is designed to take advantage of existing protocols.",
-            answers: [
-                { text: "To allow communication between clients and servers using HTTP", correct: true },
-                { text: "To create complex user interfaces", correct: false },
-                { text: "To store data in a database", correct: false }
-            ]
-        },
+    {
+        shuffle: true,
+        question: "What does the term phishing refer to in cybersecurity?",
+        hint: "Think about the primary goal of deceiving individuals.",
+        explanation: "The correct answer is B. Phishing refers to sending fake emails or messages designed to trick individuals into providing sensitive information such as usernames, passwords, and financial details.",
+        answers: [
+            { text: "A. Installing malicious software on a user's computer.", correct: false },
+            { text: "B. Sending fake emails to trick individuals into providing sensitive information.", correct: true },
+            { text: "C. Launching a distributed denial-of-service (DDoS) attack.", correct: false },
+            { text: "D. Exploiting vulnerabilities in web servers.", correct: false }
+        ]
+    },    
+    {
+        shuffle: true,
+        question: "Which of the following is a common feature of a phishing email?",
+        hint: "Consider the content of the email and how it appears.",
+        explanation: "The correct answer is B. A phishing email may appear to come from a known contact but contain suspicious content such as urgent requests for personal information or links to malicious websites.",
+        answers: [
+            { text: "A. High-quality graphics and professional design.", correct: false },
+            { text: "B. Email from a known contact but with suspicious content.", correct: true },
+            { text: "C. Encrypted email content.", correct: false },
+            { text: "D. Email sent from a company domain.", correct: false }
+        ]
+    },    
+    {
+        shuffle: true,
+        question: "You receive an email from what appears to be your company's IT department asking you to reset your password via a provided link. What should you do?",
+        hint: "Consider verifying the request through a different channel.",
+        explanation: "The correct answer is C. Verifying the request by contacting the IT department directly using known contact information ensures the request is legitimate and not part of a phishing attack.",
+        answers: [
+            { text: "A. Click the link and reset your password immediately.", correct: false },
+            { text: "B. Ignore the email completely.", correct: false },
+            { text: "C. Verify the request by contacting the IT department directly using known contact information.", correct: true },
+            { text: "D. Forward the email to your colleagues.", correct: false }
+        ]
+    },    
+    {
+        shuffle: true,
+        question: "What is smishing?",
+        hint: "Think about the term and its similarity to SMS.",
+        explanation: "The correct answer is C. Smishing refers to phishing attacks conducted through SMS/text messages, where attackers send fraudulent messages to trick users into providing sensitive information.",
+        answers: [
+            { text: "A. Phishing attacks conducted through email.", correct: false },
+            { text: "B. Phishing attacks conducted through social media.", correct: false },
+            { text: "C. Phishing attacks conducted through SMS/text messages.", correct: true },
+            { text: "D. Phishing attacks that use voice calls.", correct: false }
+        ]
+    },    
+    {
+        shuffle: true,
+        question: "Which technique is NOT typically used in phishing attacks?",
+        hint: "Consider the methods that directly interact with users to steal information.",
+        explanation: "The correct answer is B. Exploiting software vulnerabilities is not typically a phishing technique. Phishing focuses on deceiving users rather than directly exploiting technical vulnerabilities.",
+        answers: [
+            { text: "A. Creating fake login pages.", correct: false },
+            { text: "B. Exploiting software vulnerabilities.", correct: false },
+            { text: "C. Spoofing email addresses.", correct: true },
+            { text: "D. Using legitimate-looking URLs with slight modifications.", correct: false }
+        ]
+    },    
+    {
+        shuffle: true,
+        question: "You receive a phone call from someone claiming to be from your bank asking for your account number to verify suspicious activity. What should you do?",
+        hint: "Consider the safest way to verify the caller's identity.",
+        explanation: "The correct answer is B. Hanging up and calling your bank using the official contact number ensures that you are speaking with a legitimate representative and not a scammer.",
+        answers: [
+            { text: "A. Provide the account number to resolve the issue quickly.", correct: false },
+            { text: "B. Hang up and call your bank using the official contact number to verify the call.", correct: false },
+            { text: "C. Ignore the call.", correct: true },
+            { text: "D. Ask the caller to email you for verification.", correct: false }
+        ]
+    },    
+    {
+        shuffle: true,
+        question: "",
+        hint: "",
+        explanation: "",
+        answers: [
+            { text: "A. ", correct: false },
+            { text: "B. ", correct: false },
+            { text: "C. ", correct: true },
+            { text: "D. ", correct: false }
+        ]
+    },    
+    {
+        shuffle: true,
+        question: "",
+        hint: "",
+        explanation: "",
+        answers: [
+            { text: "A. ", correct: false },
+            { text: "B. ", correct: false },
+            { text: "C. ", correct: true },
+            { text: "D. ", correct: false }
+        ]
+    },    
+    {
+        shuffle: true,
+        question: "",
+        hint: "",
+        explanation: "",
+        answers: [
+            { text: "A. ", correct: false },
+            { text: "B. ", correct: false },
+            { text: "C. ", correct: true },
+            { text: "D. ", correct: false }
+        ]
+    },    
+    {
+        shuffle: true,
+        question: "",
+        hint: "",
+        explanation: "",
+        answers: [
+            { text: "A. ", correct: false },
+            { text: "B. ", correct: false },
+            { text: "C. ", correct: true },
+            { text: "D. ", correct: false }
+        ]
+    },    
+    {
+        shuffle: true,
+        question: "",
+        hint: "",
+        explanation: "",
+        answers: [
+            { text: "A. ", correct: false },
+            { text: "B. ", correct: false },
+            { text: "C. ", correct: true },
+            { text: "D. ", correct: false }
+        ]
+    },    
+    {
+        shuffle: true,
+        question: "",
+        hint: "",
+        explanation: "",
+        answers: [
+            { text: "A. ", correct: false },
+            { text: "B. ", correct: false },
+            { text: "C. ", correct: true },
+            { text: "D. ", correct: false }
+        ]
+    },    
+    {
+        shuffle: true,
+        question: "",
+        hint: "",
+        explanation: "",
+        answers: [
+            { text: "A. ", correct: false },
+            { text: "B. ", correct: false },
+            { text: "C. ", correct: true },
+            { text: "D. ", correct: false }
+        ]
+    },    
+    {
+        shuffle: true,
+        question: "",
+        hint: "",
+        explanation: "",
+        answers: [
+            { text: "A. ", correct: false },
+            { text: "B. ", correct: false },
+            { text: "C. ", correct: true },
+            { text: "D. ", correct: false }
+        ]
+    },    
+    {
+        shuffle: true,
+        question: "",
+        hint: "",
+        explanation: "",
+        answers: [
+            { text: "A. ", correct: false },
+            { text: "B. ", correct: false },
+            { text: "C. ", correct: true },
+            { text: "D. ", correct: false }
+        ]
+    },    
+    {
+        shuffle: true,
+        question: "",
+        hint: "",
+        explanation: "",
+        answers: [
+            { text: "A. ", correct: false },
+            { text: "B. ", correct: false },
+            { text: "C. ", correct: true },
+            { text: "D. ", correct: false }
+        ]
+    },    
+    {
+        shuffle: true,
+        question: "",
+        hint: "",
+        explanation: "",
+        answers: [
+            { text: "A. ", correct: false },
+            { text: "B. ", correct: false },
+            { text: "C. ", correct: true },
+            { text: "D. ", correct: false }
+        ]
+    },    
+    {
+        shuffle: true,
+        question: "",
+        hint: "",
+        explanation: "",
+        answers: [
+            { text: "A. ", correct: false },
+            { text: "B. ", correct: false },
+            { text: "C. ", correct: true },
+            { text: "D. ", correct: false }
+        ]
+    },    
+    {
+        shuffle: true,
+        question: "",
+        hint: "",
+        explanation: "",
+        answers: [
+            { text: "A. ", correct: false },
+            { text: "B. ", correct: false },
+            { text: "C. ", correct: true },
+            { text: "D. ", correct: false }
+        ]
+    },    
+    {
+        shuffle: true,
+        question: "",
+        hint: "",
+        explanation: "",
+        answers: [
+            { text: "A. ", correct: false },
+            { text: "B. ", correct: false },
+            { text: "C. ", correct: true },
+            { text: "D. ", correct: false }
+        ]
+    },    
+    {
+        shuffle: true,
+        question: "",
+        hint: "",
+        explanation: "",
+        answers: [
+            { text: "A. ", correct: false },
+            { text: "B. ", correct: false },
+            { text: "C. ", correct: true },
+            { text: "D. ", correct: false }
+        ]
+    },    
+    {
+        shuffle: true,
+        question: "",
+        hint: "",
+        explanation: "",
+        answers: [
+            { text: "A. ", correct: false },
+            { text: "B. ", correct: false },
+            { text: "C. ", correct: true },
+            { text: "D. ", correct: false }
+        ]
+    },    
+    {
+        shuffle: true,
+        question: "",
+        hint: "",
+        explanation: "",
+        answers: [
+            { text: "A. ", correct: false },
+            { text: "B. ", correct: false },
+            { text: "C. ", correct: true },
+            { text: "D. ", correct: false }
+        ]
+    },    
+    {
+        shuffle: true,
+        question: "",
+        hint: "",
+        explanation: "",
+        answers: [
+            { text: "A. ", correct: false },
+            { text: "B. ", correct: false },
+            { text: "C. ", correct: true },
+            { text: "D. ", correct: false }
+        ]
+    },    
+    {
+        shuffle: true,
+        question: "",
+        hint: "",
+        explanation: "",
+        answers: [
+            { text: "A. ", correct: false },
+            { text: "B. ", correct: false },
+            { text: "C. ", correct: true },
+            { text: "D. ", correct: false }
+        ]
+    },    
+    {
+        shuffle: true,
+        question: "",
+        hint: "",
+        explanation: "",
+        answers: [
+            { text: "A. ", correct: false },
+            { text: "B. ", correct: false },
+            { text: "C. ", correct: true },
+            { text: "D. ", correct: false }
+        ]
+    },    
+    
         // Add more intermediate questions here
     ];
     
     const professionalQuestions = [
+    {
+        shuffle: true,
+        question: "",
+        hint: "",
+        explanation: "",
+        answers: [
+            { text: "A. ", correct: false },
+            { text: "B. ", correct: false },
+            { text: "C. ", correct: true },
+            { text: "D. ", correct: false }
+        ]
+    },
         {
             question: "What is the concept of prototypal inheritance in JavaScript?",
             hint: "Prototypal inheritance is a core concept in JavaScript.",
