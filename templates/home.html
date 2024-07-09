@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Leaderboards{% endblock %}
+{% block content %}
+<div class="p-6 bg-white shadow-md rounded-md">
+    <h1 class="text-3xl font-bold mb-4">Phishing Title</h1>
+    <div class="flex flex-col font-mono">
+        <div class="overflow-x-auto">
+            <div class="inline-block min-w-full align-middle">
+                <ul class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400 text-nowrap">
+                    <li>
+                        To start playing the game, choose your difficulty level (It is recommended to go through all difficulty levels).
+                    </li>
+                    <li>
+                        Gain points by answering questions and learning through the game, your points are calculated and will be displayed in the leaderboard.
+                    </li>
+                    <li>
+                        Answering a question correct will grant you points but answering them incorrectly will deduct your points (The number of points that is awarded and deducted is based on difficulty level).
+                    </li>
+                    <li>
+                        Bonus questions will appear in all difficulty levels, these questions will grant you higher points if answered correctly, but if answered incorrectly it will deduct huge points <br> (The number of points that is awarded and deducted is based on difficulty level).
+                    </li>
+                    <li>
+                        Lastly, enjoy the game!
+                    </li>
+                    <br>
+                    <button onclick="window.location.href='{{ url_for('phishing_gamified') }}'" class="my-10 px-10 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Begin</button>    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

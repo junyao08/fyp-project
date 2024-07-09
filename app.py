@@ -106,7 +106,7 @@ def reset_password(token):
 @app.route('/')
 def home():
     if 'username' in session:
-        return render_template('phishing_gamified.html', username=session['username'], )
+        return render_template('home.html', username=session['username'], )
     return redirect(url_for('login'))
 
 @app.route('/profile', methods=['GET', 'POST'])
@@ -150,7 +150,7 @@ def login():
         
         if user and check_password_hash(user[2], password):
             session['username'] = username
-            return redirect(url_for('phishing_gamified'))
+            return redirect(url_for('home'))
         else:
             flash('Invalid credentials', 'error')
             return redirect(url_for('login'))
